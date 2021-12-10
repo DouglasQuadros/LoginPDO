@@ -1,0 +1,48 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of cUsuario
+ *
+ * @author Douglas
+ */
+class cUsuario {
+    //put your code here
+    public function inserir() {
+        if(isset($_POST['salvar'])) {
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $pas = $_POST['pas'];
+        
+        $pdo = require_once '../pdo/connection.php';
+        $sql = "insert into usuario (nomeUser, email, pas) values (?, ?, ?)";
+        $sth = $pdo->prepare($sql);
+        $sth->bindParam(1, $nome, PDO::PARAM_STR);
+        $sth->bindParam(2, $email, PDO::PARAM_STR);
+        $sth->bindParam(3, $pass, PDO::PARAM_STR);
+        $pass = password_hash($sql, PASSWORD_DEFAULT);
+        $sth->execute();
+        unset($sth);
+        unset($pdo);
+        
+        }
+        
+    }
+    
+    public function getUsuario() {
+        $pdo = require_once '../pdo/connection.php';
+        $sql = "select * from usuario";
+        $sth = $pdo->prepare($sql);
+        $sth->execute();
+        $result = $sth->fetch(PDO::FETCH_ASSOC);
+        return $result;
+        unset($sth);
+        unset($pdo);
+        
+    }
+}
