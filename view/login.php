@@ -5,6 +5,10 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
+session_start();
+if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
+    header("Location: ../index.php");
+}
 require_once '../controller/cLogin.php';
 $login = new cLogin();
 ?>

@@ -6,12 +6,12 @@ and open the template in the editor.
 -->
 <?php
 session_start();
-if (!isset($_SESSION['logadoM']) && $_SESSION['logadoM'] != true) {
+if (!isset($_SESSION['logado']) && $_SESSION['logado'] != true) {
     header("Location: login.php");
-}else{
-    echo $_SESSION['usuarioM'] . " | " . $_SESSION['emailM'];
+} else {
+    echo $_SESSION['usuario'] . " | " . $_SESSION['email'];
+    echo " | <a href= '../controller/logout.php'>Sair</a>";
 }
-
 require_once '../controller/cUsuario.php';
 $cadUser = new cUsuario();
 ?>
@@ -32,6 +32,11 @@ $cadUser = new cUsuario();
             <br><hr><br>
             <input type="submit" name="salvar" value="Salvar"/>
             <input type="reset" name="limpar" value="Limpar"/>
+            <input type="button" value="Voltar"
+                   onclick="location.href = '../index.php'"/>
+            <br><br>
+            <input type="button" value="Lista Usuários" 
+                   onclick="location.href = 'listaUsuarios.php'"/>
         </form>
         <?php
         // put your code here

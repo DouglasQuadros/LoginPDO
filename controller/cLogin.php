@@ -41,6 +41,9 @@ class cLogin {
                 echo "<br>Não foi possivel logar!";
                 header("Location: login.php");
             }
+            unset($statement);
+            unset($pdo);
+            unset($result);
         }
         
     }
