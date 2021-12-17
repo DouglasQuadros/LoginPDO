@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <?php
 session_start();
-if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
+if (isset($_SESSION['logadoM']) && $_SESSION['logadoM'] == true) {
     header("Location: ../index.php");
 }
 require_once '../controller/cLogin.php';
@@ -15,6 +15,7 @@ $login = new cLogin();
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="Content-Language" content="pt-br">
         <title></title>
     </head>
     <body>

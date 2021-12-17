@@ -5,11 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 if (isset($_POST['deletar'])) {
-    $id = (int) $_POST['idUser'];
-
+    $id = $_POST['idUser'];
     $pdo = require_once '../pdo/connection.php';
     $sql = "delete from usuario where idUser = ?";
     $sth = $pdo->prepare($sql);

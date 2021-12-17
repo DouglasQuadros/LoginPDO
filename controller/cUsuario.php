@@ -9,31 +9,30 @@
 /**
  * Description of cUsuario
  *
- * @author Douglas
+ * @author jairb
  */
 class cUsuario {
+
     //put your code here
     public function inserir() {
-        if(isset($_POST['salvar'])) {
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $pas = $_POST['pas'];
-        
-        $pdo = require_once '../pdo/connection.php';
-        $sql = "insert into usuario (nomeUser, email, pas) values (?, ?, ?)";
-        $sth = $pdo->prepare($sql);
-        $sth->bindParam(1, $nome, PDO::PARAM_STR);
-        $sth->bindParam(2, $email, PDO::PARAM_STR);
-        $sth->bindParam(3, $pass, PDO::PARAM_STR);
-        $pass = password_hash($sql, PASSWORD_DEFAULT);
-        $sth->execute();
-        unset($sth);
-        unset($pdo);
-        
+        if (isset($_POST['salvar'])) {
+            $nome = $_POST['nome'];
+            $email = $_POST['email'];
+            $pas = $_POST['pas'];
+
+            $pdo = require_once '../pdo/connection.php';
+            $sql = "insert into usuario (nomeUser, email, pas) values (?,?,?)";
+            $sth = $pdo->prepare($sql);
+            $sth->bindParam(1, $nome, PDO::PARAM_STR);
+            $sth->bindParam(2, $email, PDO::PARAM_STR);
+            $sth->bindParam(3, $pass, PDO::PARAM_STR);
+            $pass = password_hash($pas, PASSWORD_DEFAULT);
+            $sth->execute();
+            unset($sth);
+            unset($pdo);
         }
-        
     }
-    
+
     public function getUsuario() {
         $pdo = require_once '../pdo/connection.php';
         $sql = "select idUser, nomeUser, email from usuario";
@@ -47,8 +46,7 @@ class cUsuario {
 
     public function deletarUser() {
         if (isset($_POST['deletar'])) {
-            $id = $_POST['idUser'];
-
+            $id = (int) $_POST['idUser'];
             $pdo = require_once '../pdo/connection.php';
             $sql = "delete from usuario where idUser = ?";
             $sth = $pdo->prepare($sql);
@@ -62,9 +60,9 @@ class cUsuario {
 
     public function getUsuarioById($id) {
         $pdo = require_once '../pdo/connection.php';
-        $sql = "select * from usuario where idUser = $id";
+        $sql = "select idUser, nomeUser, email from usuario where idUser = ?";
         $sth = $pdo->prepare($sql);
-        $sth->execute();
+        $sth->execute([$id]);
         $result = $sth->fetchAll();
         unset($sth);
         unset($pdo);

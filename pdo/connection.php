@@ -1,4 +1,5 @@
 <?php
+
 require_once 'config.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,19 +10,21 @@ require_once 'config.php';
 /**
  * Description of connection
  *
- * @author Douglas
+ * @author jairb
  */
 class connection {
+
     //put your code here
-    public static function getConnection($host, $dbname, $username, $password){
+    public static function getConnection($host, $dbname, $username, $password) {
         $dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
-        try{
+
+        try {
             $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
             return new PDO($dsn, $username, $password, $options);
         } catch (PDOException $ex) {
             die($ex->getMessage());
-
         }
     }
+
 }
 return connection::getConnection($host, $dbname, $username, $password);

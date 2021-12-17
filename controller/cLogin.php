@@ -9,7 +9,7 @@
 /**
  * Description of cLogin
  *
- * @author Douglas
+ * @author jairb
  */
 class cLogin {
     //put your code here
@@ -20,31 +20,26 @@ class cLogin {
             $pas = $_POST['pas'];
             
             $pdo = require_once '../pdo/connection.php';
-            $sql = "select * from usuario where email = ? and pas = ?";
+            $sql = "select * from usuario where email = ?";
             
             $statement = $pdo->prepare($sql);
-            $statement->execute([$email,]);
+            $statement->execute([$email]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             $count = $statement->rowCount();
-            
-            if($Count() > 0){
+            if($count > 0){
                 if(password_verify($pas, $result['pas'])){
                     session_start();
-                    $_SESSION['usuario'] = $result['nomeUser'];
-                    $_SESSION['email'] = $result['email'];
-                    $_SESSION['logado'] = true;
-                    header("Location: cadUsuario.php");
-                    
-                    
+                    $_SESSION['usuarioM'] = $result['nomeUser'];
+                    $_SESSION['emailM'] = $result['email'];
+                    $_SESSION['logadoM'] = true;
+                    header("Location: ../index.php");
                 }
             }else{
-                echo "<br>Não foi possivel logar!";
                 header("Location: login.php");
             }
-            unset($statement);
+            unset($$statement);
             unset($pdo);
             unset($result);
         }
-        
     }
 }
